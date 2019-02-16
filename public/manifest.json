@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sweep App",
+  "name": "Sweep - a minesweeper game",
   "icons": [
     {
       "src": "favicon.ico",
