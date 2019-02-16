@@ -47,9 +47,13 @@ ol, ul {
   width: 34px;
 }
 
+.clicked {
+  background: lightblue
+}
+
 .square:focus {
   outline: none;
-  background: #ddd
+  
 }
 
 .kbd-navigation .square:focus {

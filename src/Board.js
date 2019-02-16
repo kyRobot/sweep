@@ -2,8 +2,10 @@ import React from "react";
 import "./index.css";
 
 function Square(props) {
+  const classes = "square" + (props.value ? " clicked" : "");
+
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={classes} onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -18,7 +20,7 @@ class Board extends React.Component {
     });
     this.state = {
       squares: squares,
-      mines : mines,
+      mines: mines,
       totalMines: mines.filter(x => x != null).length
     };
   }
@@ -33,14 +35,18 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice();
-
+      const squares = this.state.squares.slice();
+    if (squares[i]) {
+      return;
+    }
     if (this.state.mines[i]) {
       squares[i] = "*";
+    } else {
+      squares[i] = " ";
     }
+
     this.setState({
-      squares: squares,
-      mines: this.state.mines
+      squares: squares
     });
   }
 
