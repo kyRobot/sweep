@@ -17,6 +17,11 @@ ol, ul {
   padding-left: 30px;
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .board-row:after {
   clear: both;
   content: "";
@@ -44,6 +49,7 @@ ol, ul {
 
 .square:focus {
   outline: none;
+  background: #ddd
 }
 
 .kbd-navigation .square:focus {
