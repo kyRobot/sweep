@@ -13,7 +13,8 @@ code {
     monospace;
 }
 
-ol, ul {
+ol,
+ul {
   padding-left: 30px;
 }
 
@@ -47,13 +48,16 @@ ol, ul {
   width: 34px;
 }
 
-.clicked {
-  background: lightblue
+.safe {
+  background: palegreen;
+}
+
+.mine {
+  background: red
 }
 
 .square:focus {
   outline: none;
-  
 }
 
 .kbd-navigation .square:focus {
@@ -68,5 +72,3 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
-
-
