@@ -12,8 +12,14 @@ function Square(props) {
 class Board extends React.Component {
   constructor(props) {
     super(props);
+    const squares = Array(16).fill(null);
+    const mines = squares.map(x => {
+      return Math.floor(Math.random() * Math.floor(10)) > 7 ? "*" : null;
+    });
     this.state = {
-      squares: Array(16).fill(null)
+      squares: squares,
+      mines : mines,
+      totalMines: mines.filter(x => x != null).length
     };
   }
 
@@ -28,17 +34,18 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-    if (squares[i]) {
-      return;
+
+    if (this.state.mines[i]) {
+      squares[i] = "*";
     }
-    squares[i] = ".";
     this.setState({
-      squares: squares
+      squares: squares,
+      mines: this.state.mines
     });
   }
 
   render() {
-    const status = "Avoid the mines!";
+    const status = "Avoid the " + this.state.totalMines + " mines!";
 
     return (
       <div>
