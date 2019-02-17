@@ -48,6 +48,12 @@ ul {
   width: 34px;
 }
 
+.double-width {
+  width: 67px;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
 .safe {
   background: palegreen;
 }
