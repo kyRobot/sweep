@@ -65,11 +65,16 @@ class Board extends React.Component {
 
   renderRow(row, totalRows) {
     let tiles = [];
-    const last = row + totalRows;
-    for (let index = row; index < last; index++) {
+    for (let index = row; index < row + totalRows; index++) {
       tiles.push(this.renderSquare(index));
     }
     return <div className="board-row">{tiles}</div>;
+  }
+
+  renderBoard(columns) {
+    return Array(columns)
+      .fill(null)
+      .map((_, i) => this.renderRow(columns*i, columns));
   }
 
   render() {
@@ -81,12 +86,8 @@ class Board extends React.Component {
     }
     return (
       <div>
-        <div className="status">{status}</div>
-        {Array(this.props.columns)
-          .fill(null)
-          .map((_, i) => {
-            return this.renderRow(this.props.columns*i, this.props.columns);
-          })}
+        <div className="board-row status">{status}</div>
+        {this.renderBoard(this.props.columns)}
       </div>
     );
   }
