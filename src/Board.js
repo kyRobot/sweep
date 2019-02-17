@@ -21,7 +21,8 @@ function Square(props) {
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    const squares = Array(16).fill(null);
+    const size = props.columns * props.columns;
+    const squares = Array(size).fill(null);
     const mines = squares.map(x => {
       return Math.floor(Math.random() * Math.floor(10)) > 7 ? "*" : null;
     });
@@ -37,6 +38,7 @@ class Board extends React.Component {
     return (
       <Square
         value={this.state.squares[i]}
+        key={i}
         onClick={() => this.handleClick(i)}
       />
     );
@@ -61,6 +63,15 @@ class Board extends React.Component {
     });
   }
 
+  renderRow(row, totalRows) {
+    let tiles = [];
+    const last = row + totalRows;
+    for (let index = row; index < last; index++) {
+      tiles.push(this.renderSquare(index));
+    }
+    return <div className="board-row">{tiles}</div>;
+  }
+
   render() {
     let status;
     if (this.state.dead) {
@@ -71,30 +82,11 @@ class Board extends React.Component {
     return (
       <div>
         <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-          {this.renderSquare(3)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(8)}
-          {this.renderSquare(9)}
-          {this.renderSquare(10)}
-          {this.renderSquare(11)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(12)}
-          {this.renderSquare(13)}
-          {this.renderSquare(14)}
-          {this.renderSquare(15)}
-        </div>
+        {Array(this.props.columns)
+          .fill(null)
+          .map((_, i) => {
+            return this.renderRow(this.props.columns*i, this.props.columns);
+          })}
       </div>
     );
   }
