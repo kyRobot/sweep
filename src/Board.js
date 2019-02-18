@@ -68,7 +68,7 @@ class Board extends React.Component {
     for (let index = row; index < row + totalRows; index++) {
       tiles.push(this.renderSquare(index));
     }
-    return <div className="board-row">{tiles}</div>;
+    return <div key={"row"+row/totalRows} className="board-row">{tiles}</div>;
   }
 
   renderBoard(columns) {
