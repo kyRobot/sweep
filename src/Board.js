@@ -54,13 +54,17 @@ class Board extends React.Component {
       squares[i] = "*";
       dead = true;
     } else {
-      squares[i] = " ";
+      squares[i] = this.adjacency(i, this.state.mines);
     }
 
     this.setState({
       squares: squares,
       dead: dead
     });
+  }
+
+  adjacency(i, mines) {
+    return " "
   }
 
   renderRow(row, totalRows) {
