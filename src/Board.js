@@ -5,10 +5,10 @@ function Square(props) {
   let classes = "square ";
   if (props.value === "*") {
     classes += "mine";
-  }
-
-  if ((props.value > 0) | (props.value === " ")) {
-    classes += "safe";
+  } else if (props.value === 0) {
+    classes += "safe empty";
+  } else if (props.value != null) {
+    classes += "safe"
   }
 
   return (
@@ -55,11 +55,7 @@ class Board extends React.Component {
       dead = true;
     } else {
       const adjacents = this.adjacency(i, this.state.mines, this.props.columns);
-      if (adjacents > 0) {
-        squares[i] = adjacents;
-      } else {
-        squares[i] = " ";
-      }
+      squares[i] = adjacents;
     }
 
     this.setState({

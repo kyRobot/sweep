@@ -58,8 +58,12 @@ ul {
   background: palegreen;
 }
 
+.empty {
+  color: palegreen;
+}
+
 .mine {
-  background: red
+  background: red;
 }
 
 .square:focus {
