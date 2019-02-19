@@ -8,7 +8,7 @@ function Square(props) {
   } else if (props.value === 0) {
     classes += "safe empty";
   } else if (props.value != null) {
-    classes += "safe"
+    classes += "safe";
   }
 
   return (
@@ -54,8 +54,7 @@ class Board extends React.Component {
       squares[i] = "*";
       dead = true;
     } else {
-      const adjacents = this.adjacency(i, this.state.mines, this.props.columns);
-      squares[i] = adjacents;
+      this.walkout([i], this.props.columns, squares, []);
     }
 
     this.setState({
@@ -64,17 +63,13 @@ class Board extends React.Component {
     });
   }
 
-  adjacency(i, mines, columns) {
-    // i = x + cols * y
-    // x = i % width
-    // y = i / width
-    const c = columns;
-    const x = i % c;
-    const y = Math.floor(i / c);
+  mines(tiles) {
+    return tiles.map(t => this.state.mines[t]).filter(Boolean).length;
+  }
 
+  get xyMovements() {
     // 0,0 is top left so north & south are flipped
-
-    const adjacents = [
+    return [
       [0, -1], // n
       [1, 0], // e
       [0, 1], // s
@@ -84,11 +79,42 @@ class Board extends React.Component {
       [-1, 1], // sw
       [1, 1] // se
     ];
+  }
 
-    return adjacents
-      .map(move => this.get1DIndex(x, y, columns, move[0], move[1]))
-      .map(i => mines[i])
-      .filter(Boolean).length;
+  walkout(tiles, columns, squares, visited) {
+    if (tiles.length === 0) {
+      return;
+    }
+    let i = tiles.pop();
+    visited.push(i);
+    let neighbours = this.neighbours(i, columns);
+    let mines = this.mines(neighbours);
+    if (mines === 0) {
+      neighbours.forEach(neighbour => {
+        if (!visited.includes(neighbour) && !tiles.includes(neighbour)) {
+          tiles.push(neighbour);
+        }
+      });
+    }
+    squares[i] = mines;
+    this.walkout(tiles, columns, squares, visited);
+  }
+
+  neighbours(i, columns) {
+    // i = x + cols * y
+    // x = i % width
+    // y = i / width
+    return this.xyMovements
+      .map(move =>
+        this.get1DIndex(
+          i % columns,
+          Math.floor(i / columns),
+          columns,
+          move[0],
+          move[1]
+        )
+      )
+      .filter(Number.isInteger);
   }
 
   get1DIndex(originX, originY, columns, moveX, moveY) {
