@@ -7,7 +7,7 @@ function Square(props) {
     classes += "mine";
   }
 
-  if (props.value === " ") {
+  if ((props.value > 0) | (props.value === " ")) {
     classes += "safe";
   }
 
@@ -54,7 +54,12 @@ class Board extends React.Component {
       squares[i] = "*";
       dead = true;
     } else {
-      squares[i] = this.adjacency(i, this.state.mines);
+      const adjacents = this.adjacency(i, this.state.mines, this.props.columns);
+      if (adjacents > 0) {
+        squares[i] = adjacents;
+      } else {
+        squares[i] = " ";
+      }
     }
 
     this.setState({
@@ -63,8 +68,44 @@ class Board extends React.Component {
     });
   }
 
-  adjacency(i, mines) {
-    return " "
+  adjacency(i, mines, columns) {
+    // i = x + cols * y
+    // x = i % width
+    // y = i / width
+    const c = columns;
+    const x = i % c;
+    const y = Math.floor(i / c);
+
+    // 0,0 is top left so north & south are flipped
+
+    const adjacents = [
+      [0, -1], // n
+      [1, 0], // e
+      [0, 1], // s
+      [-1, 0], // w
+      [-1, -1], // nw
+      [1, -1], // ne
+      [-1, 1], // sw
+      [1, 1] // se
+    ];
+
+    return adjacents
+      .map(move => this.get1DIndex(x, y, columns, move[0], move[1]))
+      .map(i => mines[i])
+      .filter(Boolean).length;
+  }
+
+  get1DIndex(originX, originY, columns, moveX, moveY) {
+    if (
+      !(
+        originX + moveX < 0 ||
+        originX + moveX >= columns ||
+        originY + moveY < 0 ||
+        originY + moveY >= columns
+      )
+    ) {
+      return originX + moveX + columns * (originY + moveY);
+    }
   }
 
   renderRow(row, totalRows) {
@@ -72,13 +113,17 @@ class Board extends React.Component {
     for (let index = row; index < row + totalRows; index++) {
       tiles.push(this.renderSquare(index));
     }
-    return <div key={"row"+row/totalRows} className="board-row">{tiles}</div>;
+    return (
+      <div key={"row" + row / totalRows} className="board-row">
+        {tiles}
+      </div>
+    );
   }
 
   renderBoard(columns) {
     return Array(columns)
       .fill(null)
-      .map((_, i) => this.renderRow(columns*i, columns));
+      .map((_, i) => this.renderRow(columns * i, columns));
   }
 
   render() {
