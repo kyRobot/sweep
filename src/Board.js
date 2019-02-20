@@ -18,18 +18,23 @@ function Square(props) {
   );
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
     const size = props.columns * props.columns;
     const squares = Array(size).fill(null);
-    const mines = squares.map(x => {
-      return Math.floor(Math.random() * Math.floor(10)) > 7 ? "*" : null;
-    });
+    const minefield = Array(size).fill("*", 0, props.mines);
+    shuffle(minefield);
     this.state = {
       squares: squares,
-      mines: mines,
-      totalMines: mines.filter(x => x != null).length,
+      minefield: minefield,
       dead: false
     };
   }
@@ -50,7 +55,7 @@ class Board extends React.Component {
       return;
     }
     let dead = false;
-    if (this.state.mines[i]) {
+    if (this.state.minefield[i]) {
       squares[i] = "*";
       dead = true;
     } else {
@@ -64,7 +69,7 @@ class Board extends React.Component {
   }
 
   mines(tiles) {
-    return tiles.map(t => this.state.mines[t]).filter(Boolean).length;
+    return tiles.map(t => this.state.minefield[t]).filter(Boolean).length;
   }
 
   get xyMovements() {
@@ -153,7 +158,7 @@ class Board extends React.Component {
     if (this.state.dead) {
       status = "Uh oh. Game over.";
     } else {
-      status = "Avoid the " + this.state.totalMines + " mines!";
+      status = "Avoid the " + this.props.mines + " mines!";
     }
     return (
       <div>
