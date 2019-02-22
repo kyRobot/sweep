@@ -18,23 +18,12 @@ function Square(props) {
   );
 }
 
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    const size = props.columns * props.columns;
-    const squares = Array(size).fill(null);
-    const minefield = Array(size).fill("*", 0, props.mines);
-    shuffle(minefield);
+    const squares = props.minefield.slice().fill();
     this.state = {
       squares: squares,
-      minefield: minefield,
       dead: false
     };
   }
@@ -55,7 +44,7 @@ class Board extends React.Component {
       return;
     }
     let dead = false;
-    if (this.state.minefield[i]) {
+    if (this.props.minefield[i]) {
       squares[i] = "*";
       dead = true;
     } else {
@@ -69,7 +58,7 @@ class Board extends React.Component {
   }
 
   mines(tiles) {
-    return tiles.map(t => this.state.minefield[t]).filter(Boolean).length;
+    return tiles.map(t => this.props.minefield[t]).filter(Boolean).length;
   }
 
   get xyMovements() {
