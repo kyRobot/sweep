@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Square(props) {
+function Tile(props) {
   let classes = "circle ";
   if (props.value === "*") {
     classes += "mine";
@@ -19,9 +19,9 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
+  renderTile(i) {
     return (
-      <Square
+      <Tile
         value={this.props.tiles[i]}
         key={i}
         onClick={() => this.props.onClick(i)}
@@ -32,7 +32,7 @@ class Board extends React.Component {
   renderRow(row, totalRows) {
     let tiles = [];
     for (let index = row; index < row + totalRows; index++) {
-      tiles.push(this.renderSquare(index));
+      tiles.push(this.renderTile(index));
     }
     return (
       <div key={"row" + row / totalRows} className="board-row">
