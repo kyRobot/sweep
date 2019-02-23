@@ -36,11 +36,20 @@ class Game extends React.Component {
           status={status}
         />
         <div className="board-row">
-          <button className="square double-width">Reset</button>
+          <button className="square double-width" onClick={this.reset}>Reset</button>
         </div>
       </div>
     );
   }
+
+  reset = () => {
+    let freshTiles = this.state.tiles.slice().fill();
+    let dead = false;
+    this.setState({
+      tiles: freshTiles,
+      dead: dead
+    });
+  };
 
   // fat arrow function to avoid needing to bind(this)
   handleClick = i => {
