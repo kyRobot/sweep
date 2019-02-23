@@ -50,7 +50,6 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <div className="board-row status">{this.props.status}</div>
         {this.renderBoard(this.props.columns)}
       </div>
     );

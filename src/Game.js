@@ -28,14 +28,6 @@ class Game extends React.Component {
     }
     return (
       <div>
-        <Board
-          columns={this.state.columns}
-          mines={this.state.mines}
-          minefield={this.state.minefield}
-          tiles={this.state.tiles}
-          onClick={this.handleClick}
-          status={status}
-        />
         <div className="board-row">
           <button className="square double-width" onClick={this.newGame}>
             New
@@ -43,7 +35,15 @@ class Game extends React.Component {
           <button className="square double-width" onClick={this.reset}>
             Reset
           </button>
+          <div className="board-row status">{status}</div>
         </div>
+        <Board
+          columns={this.state.columns}
+          mines={this.state.mines}
+          minefield={this.state.minefield}
+          tiles={this.state.tiles}
+          onClick={this.handleClick}
+        />
       </div>
     );
   }

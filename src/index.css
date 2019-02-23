@@ -30,7 +30,8 @@ ul {
 }
 
 .status {
-  margin-bottom: 10px;
+  margin-top: 15px;
+  float: right;
 }
 
 .square {
@@ -66,10 +67,10 @@ ul {
 
 .double-width {
   width: 67px;
-  /* margin-top: 5px; */
   font-size: 18px;
-  margin-top: 5px;
+  margin-top: 6px;
   margin-right: 5px;
+  margin-bottom: 6px
 }
 
 .safe {
