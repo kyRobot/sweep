@@ -2,6 +2,8 @@ import React from "react";
 import Board from "./Board";
 
 class Game extends React.Component {
+  static MINE = "*";
+
   constructor(props) {
     super(props);
     const columns = 8;
@@ -47,7 +49,7 @@ class Game extends React.Component {
   }
 
   generateMinefield(mines, columns) {
-    let minefield = Array(columns * columns).fill("*", 0, mines);
+    let minefield = Array(columns * columns).fill(Game.MINE, 0, mines);
     shuffle(minefield);
     return minefield;
   }
@@ -83,7 +85,7 @@ class Game extends React.Component {
     }
     let dead = false;
     if (this.state.minefield[i]) {
-      tiles[i] = "*";
+      tiles[i] = Game.MINE;
       dead = true;
     } else {
       this.walkout([i], this.state.columns, tiles, []);
@@ -96,7 +98,8 @@ class Game extends React.Component {
   };
 
   mines(tiles) {
-    return tiles.map(t => this.state.minefield[t]).filter(Boolean).length;
+    return tiles.map(t => this.state.minefield[t] === Game.MINE).filter(Boolean)
+      .length;
   }
 
   get xyMovements() {
