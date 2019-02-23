@@ -6,8 +6,7 @@ class Game extends React.Component {
     super(props);
     const columns = 8;
     const mines = 10;
-    const minefield = Array(columns * columns).fill("*", 0, mines);
-    shuffle(minefield);
+    const minefield = this.generateMinefield(mines, columns);
     const tiles = minefield.slice().fill();
     this.state = {
       columns: columns,
@@ -36,16 +35,41 @@ class Game extends React.Component {
           status={status}
         />
         <div className="board-row">
-          <button className="square double-width" onClick={this.reset}>Reset</button>
+          <button className="square double-width" onClick={this.newGame}>
+            New
+          </button>
+          <button className="square double-width" onClick={this.reset}>
+            Reset
+          </button>
         </div>
       </div>
     );
+  }
+
+  generateMinefield(mines, columns) {
+    let minefield = Array(columns * columns).fill("*", 0, mines);
+    shuffle(minefield);
+    return minefield;
   }
 
   reset = () => {
     let freshTiles = this.state.tiles.slice().fill();
     let dead = false;
     this.setState({
+      tiles: freshTiles,
+      dead: dead
+    });
+  };
+
+  newGame = () => {
+    let minefield = this.generateMinefield(
+      this.state.mines,
+      this.state.columns
+    );
+    let freshTiles = minefield.slice().fill();
+    let dead = false;
+    this.setState({
+      minefield: minefield,
       tiles: freshTiles,
       dead: dead
     });
