@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 
 function Square(props) {
-  let classes = "square ";
+  let classes = "circle ";
   if (props.value === "*") {
     classes += "mine";
   } else if (props.value === 0) {

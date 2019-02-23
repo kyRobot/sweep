@@ -48,6 +48,22 @@ ul {
   width: 34px;
 }
 
+.circle {
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: 3px;
+  margin-top: 3px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
 .double-width {
   width: 67px;
   margin-top: 5px;
@@ -66,11 +82,16 @@ ul {
   background: red;
 }
 
-.square:focus {
+.square:focus,
+.circle:focus {
   outline: none;
 }
 
 .kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.kbd-navigation .circle:focus {
   background: #ddd;
 }
 
