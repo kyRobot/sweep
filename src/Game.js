@@ -4,8 +4,8 @@ import Board from "./Board";
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    const columns = 5;
-    const mines = 4;
+    const columns = 8;
+    const mines = 10;
     const minefield = Array(columns * columns).fill("*", 0, mines);
     shuffle(minefield);
     const tiles = minefield.slice().fill();
