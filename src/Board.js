@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 
 function Tile(props) {
-  let classes = props.shape;
+  let classes = props.shape + " tile";
   if (props.value === "*") {
     classes += " mine";
   } else if (props.value === 0) {

@@ -34,9 +34,12 @@ ul {
   float: right;
 }
 
+.tile {
+  background: whitesmoke;
+  border:1px solid #999
+}
+
 .square {
-  background: #fff;
-  border: 1px solid #999;
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -51,8 +54,6 @@ ul {
 
 .circle {
   border-radius: 50%;
-  background: #fff;
-  border: 1px solid #999;
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -66,6 +67,8 @@ ul {
 }
 
 .double-width {
+  background: #fff;
+  border: 1px solid #999;
   width: 67px;
   font-size: 18px;
   margin-top: 6px;
@@ -74,15 +77,16 @@ ul {
 }
 
 .safe {
-  background: palegreen;
+  background: lightgrey;
 }
 
 .empty {
-  color: palegreen;
+  color:lightgrey;
 }
 
 .mine {
-  background: red;
+  background: black;
+  color:whitesmoke
 }
 
 .square:focus,
