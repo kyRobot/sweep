@@ -2,13 +2,13 @@ import React from "react";
 import "./index.css";
 
 function Tile(props) {
-  let classes = "circle ";
+  let classes = props.shape;
   if (props.value === "*") {
-    classes += "mine";
+    classes += " mine";
   } else if (props.value === 0) {
-    classes += "safe empty";
+    classes += " safe empty";
   } else if (props.value != null) {
-    classes += "safe";
+    classes += " safe";
   }
 
   return (
@@ -19,10 +19,19 @@ function Tile(props) {
 }
 
 class Board extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tileOption: "square"
+    }
+  }
+
   renderTile(i) {
     return (
       <Tile
         value={this.props.tiles[i]}
+        shape={this.state.tileOption}
         key={i}
         onClick={() => this.props.onClick(i)}
       />
@@ -47,10 +56,36 @@ class Board extends React.Component {
       .map((_, i) => this.renderRow(columns * i, columns));
   }
 
+  handleTileOptionChange = e => {
+    this.setState({tileOption: e.target.value})
+  };
+
   render() {
     return (
       <div>
         {this.renderBoard(this.props.columns)}
+        <div>
+          <label>
+            <input
+              type="radio"
+              name="tile-option"
+              value="square"
+              checked={this.state.tileOption === "square"}
+              onChange={this.handleTileOptionChange}
+            />
+            Square
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="tile-option"
+              value="circle"
+              checked={this.state.tileOption === "circle"}
+              onChange={this.handleTileOptionChange}
+            />
+            Circle
+          </label>
+        </div>
       </div>
     );
   }
