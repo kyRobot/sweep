@@ -64,7 +64,7 @@ class Board extends React.Component {
     return (
       <div>
         {this.renderBoard(this.props.columns)}
-        <div>
+        <div className="board-row tile-select">
           <label>
             <input
               type="radio"

@@ -22,20 +22,20 @@ class Game extends React.Component {
   render() {
     let status;
     if (this.state.dead) {
-      status = "Uh oh. Game over.";
+      status = "Game over :(";
     } else {
-      status = "Avoid the " + this.state.mines + " mines!";
+      status = this.state.mines + " mines";
     }
     return (
       <div>
         <div className="board-row">
-          <button className="square double-width" onClick={this.newGame}>
+          <button className="rounded-button" onClick={this.newGame}>
             New
           </button>
-          <button className="square double-width" onClick={this.reset}>
+          <button className="rounded-button" onClick={this.reset}>
             Reset
           </button>
-          <div className="board-row status">{status}</div>
+          <div className="status">{status}</div>
         </div>
         <Board
           columns={this.state.columns}
