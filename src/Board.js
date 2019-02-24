@@ -73,7 +73,7 @@ class Board extends React.Component {
               checked={this.state.tileOption === "square"}
               onChange={this.handleTileOptionChange}
             />
-            <span class="dot"></span>
+            <span className="dot"></span>
             Square
           </label>
           <label className="radio-option">
