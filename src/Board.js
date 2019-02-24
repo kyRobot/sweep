@@ -84,7 +84,7 @@ class Board extends React.Component {
               checked={this.state.tileOption === "circle"}
               onChange={this.handleTileOptionChange}
             />
-            <span class="dot"></span>
+            <span className="dot"></span>
             Circle
           </label>
         </div>
