@@ -35,7 +35,7 @@ class Game extends React.Component {
           <button className="rounded-button" onClick={this.reset}>
             Reset
           </button>
-          <div className="status">{status}</div>
+          <div className="status"><code>{status}</code></div>
         </div>
         <Board
           columns={this.state.columns}
