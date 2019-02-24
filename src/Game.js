@@ -1,5 +1,6 @@
 import React from "react";
 import Board from "./Board";
+import BoardControl from "./BoardControl";
 
 class Game extends React.Component {
   static MINE = "*";
@@ -28,15 +29,11 @@ class Game extends React.Component {
     }
     return (
       <div>
-        <div className="board-row">
-          <button className="rounded-button" onClick={this.newGame}>
-            New
-          </button>
-          <button className="rounded-button" onClick={this.reset}>
-            Reset
-          </button>
-          <div className="status"><code>{status}</code></div>
-        </div>
+        <BoardControl
+          newGame={this.newGame}
+          resetGame={this.reset}
+          status={status}
+        />
         <Board
           columns={this.state.columns}
           mines={this.state.mines}
