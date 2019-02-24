@@ -6,7 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 
 code {
@@ -71,13 +71,13 @@ ul {
 }
 
 .rounded-button {
-  float:left;
+  float: left;
   background: #ccc;
   border: 1px solid #999;
   border-radius: 15px;
   width: 25%;
   font-size: 14px;
-  font-weight:400;
+  font-weight: 400;
   margin: 6px 3px 6px 0px;
   padding: 5px 10px;
   box-sizing: border-box;
@@ -132,4 +132,60 @@ ul {
 
 .tile-select {
   margin-top: 6px;
+}
+
+.radio-option {
+  display: block;
+  float: left;
+  position: relative;
+  padding-left: 20px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.radio-option input {
+  position: relative;
+  display: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #ccc;
+  border: 1px solid #999;
+  border-radius: 50%;
+}
+
+.radio-option:hover input ~ .dot {
+  background-color: #999;
+}
+
+.radio-option input:checked ~ .dot {
+  background-color: #999;
+}
+
+.dot:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-option input:checked ~ .dot:after {
+  display: block;
+}
+
+.radio-option .dot:after {
+  top: 4px;
+  left: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: whitesmoke;
 }

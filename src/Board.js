@@ -65,7 +65,7 @@ class Board extends React.Component {
       <div>
         {this.renderBoard(this.props.columns)}
         <div className="board-row tile-select">
-          <label>
+          <label className="radio-option">
             <input
               type="radio"
               name="tile-option"
@@ -73,9 +73,10 @@ class Board extends React.Component {
               checked={this.state.tileOption === "square"}
               onChange={this.handleTileOptionChange}
             />
+            <span class="dot"></span>
             Square
           </label>
-          <label>
+          <label className="radio-option">
             <input
               type="radio"
               name="tile-option"
@@ -83,6 +84,7 @@ class Board extends React.Component {
               checked={this.state.tileOption === "circle"}
               onChange={this.handleTileOptionChange}
             />
+            <span class="dot"></span>
             Circle
           </label>
         </div>
