@@ -1,6 +1,7 @@
 import React from "react";
 import Board from "./Board";
 import BoardControl from "./BoardControl";
+import { isUndefined } from "util";
 
 class Game extends React.Component {
   static MINE = "*";
@@ -16,23 +17,18 @@ class Game extends React.Component {
       mines: mines,
       minefield: minefield,
       tiles: tiles,
-      dead: false
+      dead: false,
+      status: mines + " mines"
     };
   }
 
   render() {
-    let status;
-    if (this.state.dead) {
-      status = "Game over :(";
-    } else {
-      status = this.state.mines + " mines";
-    }
     return (
       <div>
         <BoardControl
           newGame={this.newGame}
           resetGame={this.reset}
-          status={status}
+          status={this.state.status}
         />
         <Board
           columns={this.state.columns}
@@ -87,12 +83,24 @@ class Game extends React.Component {
     } else {
       this.walkout([i], this.state.columns, tiles, []);
     }
+    let status;
+    if (dead) {
+      status = "Game over :(";
+    } else {
+      status = this.checkWin(tiles, this.state.mines)
+        ? "Winner!"
+        : this.state.mines + " mines";
+    }
 
     this.setState({
       tiles: tiles,
-      dead: dead
+      dead: dead,
+      status: status
     });
   };
+
+  checkWin = (tiles, mines) =>
+    tiles.slice().filter(isUndefined).length === mines;
 
   mines(tiles) {
     return tiles.map(t => this.state.minefield[t] === Game.MINE).filter(Boolean)
