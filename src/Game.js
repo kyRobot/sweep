@@ -49,10 +49,10 @@ class Game extends React.Component {
 
   reset = () => {
     let freshTiles = this.state.tiles.slice().fill();
-    let dead = false;
+    let complete = false;
     this.setState({
       tiles: freshTiles,
-      dead: dead
+      complete: complete
     });
   };
 
@@ -62,39 +62,40 @@ class Game extends React.Component {
       this.state.columns
     );
     let freshTiles = minefield.slice().fill();
-    let dead = false;
+    let complete = false;
     this.setState({
       minefield: minefield,
       tiles: freshTiles,
-      dead: dead
+      complete: complete
     });
   };
 
   // fat arrow function to avoid needing to bind(this)
   handleClick = i => {
     const tiles = this.state.tiles.slice();
-    if (tiles[i] || this.state.dead) {
+    if (tiles[i] || this.state.complete) {
       return;
     }
-    let dead = false;
+    let complete = false;
     if (this.state.minefield[i]) {
       tiles[i] = Game.MINE;
-      dead = true;
+      complete = true;
     } else {
       this.walkout([i], this.state.columns, tiles, []);
     }
     let status;
-    if (dead) {
+    if (complete) {
       status = "Game over :(";
+    } else if (this.checkWin(tiles, this.state.mines)) {
+      status = "Winner !";
+      complete = true;
     } else {
-      status = this.checkWin(tiles, this.state.mines)
-        ? "Winner!"
-        : this.state.mines + " mines";
+      status = this.state.mines + " mines";
     }
 
     this.setState({
       tiles: tiles,
-      dead: dead,
+      complete: complete,
       status: status
     });
   };
